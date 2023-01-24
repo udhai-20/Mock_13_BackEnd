@@ -10,11 +10,11 @@ const jobsSchema = mongoose.Schema(
       type: String,
       require: true,
     },
-    Contract: {
+    contract: {
       type: String,
       required: true,
     },
-    Location: {
+    location: {
       type: String,
       required: true,
     },

@@ -9,10 +9,10 @@ const {
 
 const jobsRouter = Router();
 
-jobsRouter.route("/jobs").get(getjobs);
+jobsRouter.route("/get").get(getjobs);
 jobsRouter.route("/add").post(postjobs);
-jobsRouter.route("/edit").put(updatejobs);
-jobsRouter.route("/delete").delete(deletjobs);
-jobsRouter.route("/all").put(allJobs);
+jobsRouter.route("/edit/:id").patch(updatejobs);
+jobsRouter.route("/delete/:id").delete(deletjobs);
+jobsRouter.route("/all").get(allJobs);
 
 module.exports = jobsRouter;

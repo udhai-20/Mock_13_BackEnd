@@ -5,7 +5,6 @@ const getjobs = async (req, res) => {
     console.log("req", req);
     const jobs = await JobsModel.find();
     if (jobs) {
-      console.log("note:", note);
       res.status(201).send(jobs);
     } else {
       res.status(404).send({
@@ -18,14 +17,15 @@ const getjobs = async (req, res) => {
 };
 const postjobs = async (req, res) => {
   try {
-    const { companyName, position, location } = req.body;
-    if (!companyName || !position || !location) {
+    const { companyName, position, location, contract } = req.body;
+    if (!companyName || !position || !location || !contract) {
       res.status(400).send({ message: "some fields are empty" });
     } else {
       let job = await JobsModel.create({
         companyName,
         position,
         location,
+        contract,
       });
       await job.save();
       res.status(201).send({
@@ -39,15 +39,16 @@ const postjobs = async (req, res) => {
 };
 const updatejobs = async (req, res) => {
   try {
-    const { companyName, position, location } = req.body;
+    const { companyName, position, location, contract } = req.body;
     const job = await JobsModel.findById(req.params.id);
     console.log("ote", job);
 
     if (job) {
       console.log("job", job);
-      job.companyName = companyName !== "" ? companyName : note.companyName;
+      job.companyName = companyName !== "" ? companyName : job.companyName;
       job.position = position !== "" ? position : job.position;
       job.location = location !== "" ? location : job.location;
+      job.contract = contract !== "" ? contract : job.contract;
       const updated_Job = await job.save();
       console.log(updated_Job);
       res.status(201).send({
