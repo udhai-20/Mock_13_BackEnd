@@ -1,12 +1,13 @@
 const express = require("express");
 require("dotenv").config();
+const cors = require("cors");
 const { connect } = require("./config/db");
 const userRouter = require("./router/user.router");
 const jobsRouter = require("./router/jobs.router");
 const app = express();
 const port = process.env.PORT || 8015;
 app.use(express.json());
-
+app.use(cors());
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
